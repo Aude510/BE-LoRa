@@ -160,12 +160,17 @@ void receiveRx() {
     else {
       StatusRXMessage = '2';  
     }  
-  
+    
     //écriture de la ligne de résultat
-    e = sx1272.getRSSIpacket();
     Serial.print(StatusRXMessage);
     Serial.print(" ; ");
+    e = sx1272.getRSSI();
+    Serial.print(sx1272._RSSI, DEC); 
+    Serial.print(F(" ; "));
+    e = sx1272.getRSSIpacket();
     Serial.print(sx1272._RSSIpacket, DEC); 
+    Serial.print(F(" ; "));
+    Serial.print(sx1272._SNR, DEC); 
     Serial.print(F(" ; "));
     Serial.print(sx1272.packet_received.src, DEC);
     Serial.print(" ; ");
@@ -200,7 +205,7 @@ void receiveGPS() {
   // approximately every PeriodUpdateGPS ms or so, print out the current stats
 
   Serial.print(GPS.latitudeDegrees, 4);
-  Serial.print(", "); 
+  Serial.print("; "); 
   Serial.println(GPS.longitudeDegrees, 4);
   Serial.println();
   char StatusRXMessage;
@@ -227,6 +232,7 @@ void setup() {
   Serial.begin(115200);
   initRx();
   initGPS();
+  Serial.println("status ; RSSI ; RSSI packet ; SNR ; source-address ; lat , lng");
 }
 
 // Interrupt is called once a millisecond, looks for any new GPS data, and stores it
