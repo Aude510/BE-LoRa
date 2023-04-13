@@ -19,7 +19,7 @@
 #define PreambLong 12
 #define RX_Addr 8
 #define MaxNbRetries 3
-#define WaitRxMax 7000 //en ms
+#define WaitRxMax 3000 //en ms
 #define mySerial Serial1
 #define PeriodUpdateGPS 2000 //en ms
 #define GPSECHO  false //pour ne pas avoir les données brutes
@@ -207,7 +207,6 @@ void receiveGPS() {
   Serial.print(GPS.latitudeDegrees, 4);
   Serial.print("; "); 
   Serial.println(GPS.longitudeDegrees, 4);
-  Serial.println();
   char StatusRXMessage;
 
   if (ConfigOK == true) {
